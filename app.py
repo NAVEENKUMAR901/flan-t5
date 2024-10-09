@@ -2,7 +2,7 @@ import streamlit as st
 from transformers import pipeline
 
 # Set up the text generation pipeline
-pipe = pipeline("text2text-generation", model="google/flan-t5-small")
+pipe = pipeline("text2text-generation", model="google/flan-t5-large")
 
 # Streamlit app
 st.title("FLAN-T5 Chatbot")
