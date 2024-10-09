@@ -3,7 +3,7 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 
 # Load the pre-trained FLAN-T5 large model and tokenizer
 model_name = "google/flan-t5-large"
-tokenizer = T5Tokenizer.from_pretrained(model_name)
+tokenizer = T5Tokenizer.from_pretrained(model_name, legacy=False)
 model = T5ForConditionalGeneration.from_pretrained(model_name)
 
 # Function to generate chatbot responses
