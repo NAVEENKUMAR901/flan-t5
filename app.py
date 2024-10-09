@@ -1,10 +1,10 @@
 import streamlit as st
 from transformers import pipeline
 
-# Set up the text generation pipeline
+# Set up the text generation pipeline with FLAN-T5 large model
 pipe = pipeline("text2text-generation", model="google/flan-t5-large")
 
-# Streamlit app
+# Streamlit app interface
 st.title("FLAN-T5 Chatbot")
 
 user_input = st.text_input("You:", "")
