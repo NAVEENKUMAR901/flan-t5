@@ -1,17 +1,8 @@
 import streamlit as st
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import pipeline
 
-# Load the pre-trained FLAN-T5 large model and tokenizer
-model_name = "google/flan-t5-large"
-tokenizer = T5Tokenizer.from_pretrained(model_name, legacy=False)
-model = T5ForConditionalGeneration.from_pretrained(model_name)
-
-# Function to generate chatbot responses
-def generate_response(prompt):
-    inputs = tokenizer(prompt, return_tensors="pt", truncation=True, padding=True)
-    output = model.generate(**inputs, max_length=200)
-    response = tokenizer.decode(output[0], skip_special_tokens=True)
-    return response
+# Set up the text generation pipeline
+pipe = pipeline("text2text-generation", model="google/flan-t5-small")
 
 # Streamlit app
 st.title("FLAN-T5 Chatbot")
@@ -20,7 +11,8 @@ user_input = st.text_input("You:", "")
 
 if st.button("Send"):
     if user_input.lower() != "bye":
-        bot_response = generate_response(user_input)
+        # Generate the response using the pipeline
+        bot_response = pipe(user_input)[0]['generated_text']
         st.text_area("Chatbot:", value=bot_response, height=150, disabled=True)
     else:
         st.text_area("Chatbot:", value="Goodbye!", height=150, disabled=True)
